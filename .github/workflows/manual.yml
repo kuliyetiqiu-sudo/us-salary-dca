@@ -1,0 +1,26 @@
+name: US Stock Salary DCA
+
+on:
+  schedule:
+    # 每天北京时间 08:00 (UTC 00:00) 自动运行
+    - cron: '0 0 * * *'
+  workflow_dispatch: # 允许你手动点击按钮运行测试
+
+jobs:
+  run-monitor:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v3
+        
+      - name: 设置 Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+          
+      - name: 安装依赖
+        run: pip install requests
+        
+      - name: 运行监控脚本
+        run: python main.py
